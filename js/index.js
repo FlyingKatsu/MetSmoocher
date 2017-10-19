@@ -30,6 +30,8 @@ var textPet;
 var countKiss = 0;
 var countPet = 0;
 
+var pendingTimer = 0;
+
 function create() {
 
   // Set up BG
@@ -92,8 +94,12 @@ function particleBurst(pointer) {
     state = 'blush';
     countKiss++;
     textKiss.text = "Kisses: " + countKiss;
+    pendingTimer = 0;
   } else if (state == 'idle' && mettaur.input.pointerDown(1) || mettaur.input.pointerDown(2)) { // wait to see if turns into kiss
     state = 'pending';
+    pendingTimer = 5;
+  } else if (pendingTimer > 0) {
+    pendingTimer--;
   } else { // process pet
     emitter.start(true, 1500, null, 1);
     mettaur.animations.play('happy');
