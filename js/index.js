@@ -89,7 +89,7 @@ function particleBurst(pointer) {
     mettaur.animations.play('blush');
     countKiss++;
     textKiss.text = "Kisses: " + countKiss;
-  } else {
+  } else if (mettaur.input.pointerDown(0)) {
     emitter.start(true, 1500, null, 1);
     mettaur.animations.play('happy');
     countPet++;
