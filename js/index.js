@@ -89,27 +89,38 @@ function particleBurst(pointer) {
   //  The final parameter (10) is how many particles will be emitted in this single burst
 
   if (mettaur.input.pointerDown(1) && mettaur.input.pointerDown(2)) { // process kiss
-    emitter.start(true, 3000, null, 16);
-    mettaur.animations.play('blush');
-    state = 'blush';
-    countKiss++;
-    textKiss.text = "Kisses: " + countKiss;
     pendingTimer = 0;
-  } else if (state == 'idle' && mettaur.input.pointerDown(1) || mettaur.input.pointerDown(2)) { // wait to see if turns into kiss
+  } else if (state == 'idle' && (mettaur.input.pointerDown(1) || mettaur.input.pointerDown(2))) { // wait to see if turns into kiss
     state = 'pending';
-    pendingTimer = 3;
-  } else if (pendingTimer > 0) {
-    pendingTimer--;
-  } else { // process pet
-    emitter.start(true, 1500, null, 1);
-    mettaur.animations.play('happy');
-    state = 'happy';
-    countPet++;
-    textPet.text = "Pets: " + countPet;
+    pendingTimer = 5;
+  } else {
+    if (pendingTimer <= 0) processPet();
   }
 }
 
-function update() {}
+function processKiss() {
+  emitter.start(true, 3000, null, 16);
+  mettaur.animations.play('blush');
+  state = 'blush';
+  countKiss++;
+  textKiss.text = "Kisses: " + countKiss;
+}
+
+function processPet() {
+  emitter.start(true, 1500, null, 1);
+  mettaur.animations.play('happy');
+  state = 'happy';
+  countPet++;
+  textPet.text = "Pets: " + countPet;
+}
+
+function update() {
+  if (pendingTimer > 0) {
+    pendingTimer--;
+  } else if (state == 'pending') {
+    processPet();
+  }
+}
 
 function render() {
   //game.debug.pointer(game.input.mousePointer);
