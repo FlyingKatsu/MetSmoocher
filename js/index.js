@@ -88,7 +88,8 @@ function particleBurst(pointer) {
   //  The third is ignored when using burst/explode mode
   //  The final parameter (10) is how many particles will be emitted in this single burst
 
-  if (mettaur.input.pointerDown(1) && mettaur.input.pointerDown(2)) { // process kiss
+  if (mettaur.input.pointerDown(1) && mettaur.input.pointerDown(2)) {
+    processKiss();
     pendingTimer = 0;
   } else if (state == 'idle' && (mettaur.input.pointerDown(1) || mettaur.input.pointerDown(2))) { // wait to see if turns into kiss
     state = 'pending';

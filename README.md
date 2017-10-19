@@ -4,7 +4,7 @@
 
 A birthday present for KershaFangs, Queen of the Mets.
 
-- Double-Tap = 1 Pet
+- 1-Finger Touch = 1 Pet
 - 2-Finger Touch = 1 Kiss
 
 NOTE: I made all art assets, but the original met/mettaur character belongs to Capcom
