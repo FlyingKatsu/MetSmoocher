@@ -97,7 +97,7 @@ function particleBurst(pointer) {
     pendingTimer = 0;
   } else if (state == 'idle' && mettaur.input.pointerDown(1) || mettaur.input.pointerDown(2)) { // wait to see if turns into kiss
     state = 'pending';
-    pendingTimer = 5;
+    pendingTimer = 3;
   } else if (pendingTimer > 0) {
     pendingTimer--;
   } else { // process pet
