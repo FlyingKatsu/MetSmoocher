@@ -77,30 +77,29 @@ function playIdle() {
 }
 
 function particleBurst(pointer) {
-  // Only allow process if currently idle
-  if (state == 'idle') {
-    //  Position the emitter where the mouse/touch event was
-    emitter.x = pointer.x;
-    emitter.y = pointer.y;
+  //  Position the emitter where the mouse/touch event was
+  emitter.x = pointer.x;
+  emitter.y = pointer.y;
 
-    //  The first parameter sets the effect to "explode" which means all particles are emitted at once
-    //  The second gives each particle a 2000ms lifespan
-    //  The third is ignored when using burst/explode mode
-    //  The final parameter (10) is how many particles will be emitted in this single burst
+  //  The first parameter sets the effect to "explode" which means all particles are emitted at once
+  //  The second gives each particle a 2000ms lifespan
+  //  The third is ignored when using burst/explode mode
+  //  The final parameter (10) is how many particles will be emitted in this single burst
 
-    if (mettaur.input.pointerDown(1) && mettaur.input.pointerDown(2)) {
-      emitter.start(true, 3000, null, 16);
-      mettaur.animations.play('blush');
-      state = 'blush';
-      countKiss++;
-      textKiss.text = "Kisses: " + countKiss;
-    } else {
-      emitter.start(true, 1500, null, 1);
-      mettaur.animations.play('happy');
-      state = 'happy';
-      countPet++;
-      textPet.text = "Pets: " + countPet;
-    }
+  if (mettaur.input.pointerDown(1) && mettaur.input.pointerDown(2)) { // process kiss
+    emitter.start(true, 3000, null, 16);
+    mettaur.animations.play('blush');
+    state = 'blush';
+    countKiss++;
+    textKiss.text = "Kisses: " + countKiss;
+  } else if (state == 'idle' && mettaur.input.pointerDown(1) || mettaur.input.pointerDown(2)) { // wait to see if turns into kiss
+    state = 'pending';
+  } else { // process pet
+    emitter.start(true, 1500, null, 1);
+    mettaur.animations.play('happy');
+    state = 'happy';
+    countPet++;
+    textPet.text = "Pets: " + countPet;
   }
 }
 
